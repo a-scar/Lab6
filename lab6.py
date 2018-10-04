@@ -2,8 +2,6 @@ import _mysql
 
 buffer = "true"
 
-
-
 def oneQuery():
 	db = _mysql.connect(host="localhost",user="root",passwd="skateboard",db="skateshop")
 	db.query("""SELECT * FROM decks;""")
@@ -55,6 +53,16 @@ def newYorkDecks():
 		nR = nR - 1
 	db.close()
 	
+def bostonDecks():
+	db = _mysql.connect(host="localhost",user="root",passwd="skateboard",db="skateshop")
+	db.query("""SELECT * FROM decks2skateshops where shopID = 6""")
+	r = db.store_result()
+	nR = r.num_rows()
+	while(nR > 0):
+		print(r.fetch_row())
+		nR = nR - 1
+	db.close()
+	
 while buffer:
 	print("""
 	0.Exit
@@ -63,8 +71,9 @@ while buffer:
 	3.See DeckId's in Philadelphia
 	4.See DeckId's in NewYork
 	5.See DeckId's in Tokyo
+	6.See DeckId's in Boston
 	""")
-	buffer=input("what would you like to do? ")
+	buffer=input("What would you like to do? ")
 	if buffer == 1:
 		oneQuery()
 	if buffer == 2:
